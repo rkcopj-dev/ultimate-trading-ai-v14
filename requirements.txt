@@ -1,5 +1,6 @@
-Flask==2.3.2
+Flask==2.3.3
 requests==2.31.0
 pytz==2023.3
 smartapi-python==1.3.0
 pyotp==2.9.0
+logzero==1.7.0
