@@ -736,19 +736,35 @@ def home():
     return dashboard_html
 
 # NEW: TradingView Webhook Endpoint
-@app.route('/webhook/tradingview', methods=['POST'])
+@app.route('/webhook/tradingview', methods=['POST', 'GET'])
 def tradingview_webhook():
-    """📡 TradingView webhook for live trading signals"""
+    """📡 TradingView webhook for live trading signals with GET support"""
     try:
-        # Get signal data
+        if request.method == 'GET':
+            return jsonify({
+                'status': 'webhook_ready',
+                'message': 'TradingView webhook endpoint is active and ready',
+                'system': 'Ultimate Legal Insider AI v14.0',
+                'methods': ['POST'],
+                'example_payload': {
+                    'symbol': 'NIFTY',
+                    'action': 'BUY_CALL',
+                    'price': 25000,
+                    'ai_confidence': 90
+                },
+                'live_trading': trading_ai.live_trading_enabled,
+                'timestamp': datetime.now().isoformat()
+            })
+        
+        # Handle POST request
         data = request.get_json() or {}
-
+        
         # Add timestamp
         data['timestamp'] = datetime.now().isoformat()
-
+        
         # Process through AI system
         result = trading_ai.process_trading_signal(data)
-
+        
         return jsonify({
             'status': 'success',
             'message': 'Signal processed successfully',
@@ -757,13 +773,14 @@ def tradingview_webhook():
             'system': 'Ultimate Legal Insider AI v14.0',
             'timestamp': datetime.now().isoformat()
         })
-
+        
     except Exception as e:
         print(f"TradingView webhook error: {e}")
         return jsonify({
             'status': 'error',
             'message': str(e),
-            'system': 'Ultimate Legal Insider AI v14.0'
+            'system': 'Ultimate Legal Insider AI v14.0',
+            'timestamp': datetime.now().isoformat()
         }), 500
 
 # NEW: Initialize Live Trading
@@ -818,21 +835,41 @@ def initialize_trading():
 # NEW: Trading Status Endpoint
 @app.route('/trading/status', methods=['GET'])
 def trading_status():
-    """📊 Get comprehensive trading status"""
+    """📊 Get comprehensive trading status with proper error handling"""
     try:
         positions = []
-        if trading_ai.live_trading_enabled:
-            positions = trading_ai.angel_api.get_positions()
-
-        stats = trading_ai.get_performance_stats()
-
+        api_connected = False
+        
+        # Safely check live trading and get positions
+        if trading_ai.live_trading_enabled and trading_ai.angel_api:
+            try:
+                api_connected = trading_ai.angel_api.is_connected
+                if api_connected:
+                    positions = trading_ai.angel_api.get_positions() or []
+            except Exception as e:
+                print(f"Position fetch error: {e}")
+                positions = []
+        
+        # Get performance stats safely
+        try:
+            stats = trading_ai.get_performance_stats()
+        except Exception as e:
+            print(f"Stats error: {e}")
+            stats = {
+                'total_trades': 0,
+                'winning_trades': 0,
+                'win_rate': 0,
+                'estimated_pnl': 0,
+                'active_positions': 0
+            }
+        
         return jsonify({
             'system': 'Ultimate Legal Insider AI v14.0',
             'live_trading_enabled': trading_ai.live_trading_enabled,
-            'angel_api_connected': trading_ai.angel_api.is_connected if trading_ai.angel_api else False,
-            'active_positions_count': len(positions),
-            'live_positions': positions,
-            'ai_positions': len(trading_ai.active_positions),
+            'angel_api_connected': api_connected,
+            'active_positions_count': len(positions) if positions else 0,
+            'live_positions': positions if positions else [],
+            'ai_positions': len(trading_ai.active_positions) if trading_ai.active_positions else 0,
             'performance': stats,
             'supported_instruments': list(TRADING_CONFIG.keys()),
             'configuration': {
@@ -840,27 +877,19 @@ def trading_status():
                 'risk_per_trade': f"{RISK_PER_TRADE * 100}%",
                 'portfolio_value': f"₹{PORTFOLIO_VALUE:,}"
             },
-            'timestamp': datetime.now().isoformat()
+            'timestamp': datetime.now().isoformat(),
+            'status': 'operational'
         })
-
+        
     except Exception as e:
+        print(f"Trading status endpoint error: {e}")
         return jsonify({
             'status': 'error',
-            'message': str(e),
-            'system': 'Ultimate Legal Insider AI v14.0'
+            'message': f'Trading status error: {str(e)}',
+            'system': 'Ultimate Legal Insider AI v14.0',
+            'timestamp': datetime.now().isoformat()
         }), 500
-
-# Original API endpoints (preserved)
-@app.route('/api/signal', methods=['POST'])
-def process_signal():
-    """🎯 Process trading signal manually"""
-    try:
-        data = request.get_json() or {}
-        result = trading_ai.process_trading_signal(data)
-        return jsonify(result)
-    except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 500
-
+        
 @app.route('/api/stats', methods=['GET'])
 def get_stats():
     """📈 Get performance statistics"""
