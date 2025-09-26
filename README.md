@@ -2,50 +2,157 @@
 
 💎 **AI + HUMAN = GOLDEN FUTURE (सुनहरा भविष्य)**
 
-## 🚀 The World's Most Advanced Options Trading AI
+Complete automated options trading system with live trading capabilities for NIFTY, BANK NIFTY, and SENSEX.
 
-Ultimate Legal Insider AI v14.0 represents the pinnacle of artificial intelligence in financial markets, specifically designed for Indian stock market options trading.
+## 🚀 Features
 
-### 🎯 Phase 1 - Foundation System (Current)
-- **Intelligence Level:** 97%
-- **Target Win Rate:** 85-90%
-- **Supported Indices:** NIFTY, BANKNIFTY, SENSEX
-- **Trading Style:** Intraday Options Trading
-- **Risk Management:** Professional Grade
+### ✅ AI Trading System
+- Advanced AI signal generation with 85-90% target win rate
+- Real-time market sentiment analysis
+- Professional risk management
+- Multi-target profit booking system
 
-### 🔮 Phase 2 - Advanced AI (Coming November 2025)
-- **Intelligence Level:** 99%
-- **Self-Learning Algorithms**
-- **Neural Network Integration**
-- **Market Regime Detection**
-- **Complete Automation**
+### ✅ Live Trading Integration
+- Angel One SmartAPI integration for real-time order placement
+- TradingView webhook support for automated signals
+- Complete automation from signal to execution
+- Professional dashboard with live/paper trading modes
 
-## 📊 System Capabilities
+### ✅ Professional Features
+- Real-time Telegram notifications
+- SQLite database for trade history
+- Performance analytics and monitoring
+- Risk management with position limits
 
-### Current Features
-- ✅ Multi-timeframe Analysis (5min, 15min, 1hr)
-- ✅ Professional Risk Management
-- ✅ Real-time Signal Processing
-- ✅ Advanced Option Strategies
-- ✅ Telegram Integration
-- ✅ Performance Analytics
-- ✅ Trade Journal & Database
+## 🎯 Supported Instruments
 
-### Technology Stack
-- **Backend:** Python Flask
-- **Database:** SQLite
-- **Deployment:** Railway
-- **Notifications:** Telegram
-- **Trading Platform:** TradingView + Pine Script
+| **Index** | **Lot Size** | **Exchange** | **Options** |
+|-----------|--------------|--------------|-------------|
+| NIFTY | 75 | NFO | CE/PE |
+| BANK NIFTY | 15 | NFO | CE/PE |
+| SENSEX | 10 | BFO | CE/PE |
 
-## 🎯 Performance Targets
+## 🔗 API Endpoints
 
-| Index | Target Win Rate | Risk:Reward | Max Drawdown |
-|-------|----------------|-------------|--------------|
-| NIFTY | 88% | 2.5:1+ | <12% |
-| BANKNIFTY | 85% | 3.0:1+ | <15% |
-| SENSEX | 90% | 2.2:1+ | <10% |
+- **Home Dashboard**: `/`
+- **TradingView Webhook**: `/webhook/tradingview`
+- **Initialize Trading**: `/trading/initialize`
+- **Trading Status**: `/trading/status`
+- **Manual Signal**: `/api/signal`
+- **Performance Stats**: `/api/stats`
 
-## 🚀 Quick Start
+## 🛠️ Installation & Setup
 
-1. **Clone Repository**
+### 1. Environment Variables
+
+```bash
+# Required
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+
+# For Live Trading (Optional)
+ANGEL_API_KEY=your_angel_api_key
+ANGEL_USERNAME=your_client_code
+ANGEL_PASSWORD=your_mpin
+ANGEL_TOTP_TOKEN=your_totp_secret
+```
+
+### 2. Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run Application
+
+```bash
+python app.py
+```
+
+## 📡 TradingView Integration
+
+### Webhook URL
+```
+https://your-railway-app.railway.app/webhook/tradingview
+```
+
+### Alert Message Format
+```json
+{
+  "symbol": "NIFTY",
+  "action": "BUY_CALL",
+  "price": 25000,
+  "ai_confidence": 90
+}
+```
+
+## 🎯 Trading Configuration
+
+- **Maximum Positions**: 3 concurrent trades
+- **Risk Per Trade**: 2% of portfolio
+- **Confidence Threshold**: 75% minimum
+- **Target Profits**: 40%, 100%, 180%
+- **Stop Loss**: 35% of entry premium
+
+## 🚀 Live Trading Setup
+
+1. **Get Angel One API**: Register at smartapi.angelone.in
+2. **Configure Environment Variables**: Add API credentials
+3. **Initialize Trading**: POST to `/trading/initialize`
+4. **Monitor Dashboard**: Check `/trading/status`
+
+## 📊 Performance Monitoring
+
+The system includes comprehensive performance tracking:
+- Trade history database
+- Win rate calculations
+- P&L tracking
+- Real-time position monitoring
+
+## 🛡️ Risk Management
+
+- Position size limits
+- Confidence-based filtering
+- Market hours verification
+- API connection monitoring
+- Automatic error handling
+
+## 📱 Notifications
+
+Real-time Telegram notifications for:
+- Signal generation
+- Order placement
+- Target achievements
+- Stop loss triggers
+- System status updates
+
+## 🔧 Technical Stack
+
+- **Backend**: Python Flask
+- **Database**: SQLite
+- **Trading API**: Angel One SmartAPI
+- **Notifications**: Telegram Bot API
+- **Deployment**: Railway Platform
+- **Webhooks**: TradingView Integration
+
+## 📈 Success Metrics
+
+- **Target Win Rate**: 85-90%
+- **Risk Management**: 2% per trade
+- **Automation Level**: 100% signal to execution
+- **Response Time**: < 2 seconds for webhook processing
+
+## 🎉 Phase 1 Complete
+
+This represents the complete implementation of Phase 1:
+- ✅ AI signal generation
+- ✅ Live trading integration
+- ✅ Professional risk management
+- ✅ Complete automation
+- ✅ Multi-index support
+
+---
+
+**💎 Ultimate Legal Insider AI v14.0 - Where AI meets Human Intelligence for Golden Future**
+
+🚀 **Ready for Live Trading | Professional Grade | Fully Automated**
