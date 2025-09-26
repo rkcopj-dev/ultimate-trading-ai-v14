@@ -61,21 +61,20 @@ TRADING_CONFIG = {
     'NIFTY': {
         'lot_size': 75,
         'tick_size': 0.05,
-        'exchange': 'NFO',
+        'exchange': 'NSE',  # FIXED: Use NSE for spot prices
         'token': '99926000',
-        'symbol_format': 'NIFTY{expiry}{strike}{option_type}'
     },
     'BANKNIFTY': {
         'lot_size': 15,
         'tick_size': 0.05,
-        'exchange': 'NFO',
+        'exchange': 'NSE',
         'token': '99926009',
         'symbol_format': 'BANKNIFTY{expiry}{strike}{option_type}'
     },
     'SENSEX': {
         'lot_size': 10,
         'tick_size': 1.0,
-        'exchange': 'BFO',
+        'exchange': 'BSE',
         'token': '99919000',
         'symbol_format': 'SENSEX{expiry}{strike}{option_type}'
     }
@@ -163,16 +162,15 @@ class AngelOneAPI:
             return False
     
     def get_ltp(self, symbol):
-        """📊 Get Last Traded Price"""
-        try:
-            if not self.is_connected:
-                return get_current_banknifty_price()
-            
-            token = TRADING_CONFIG.get(symbol, {}).get('token', '99926009')
-            exchange = TRADING_CONFIG.get(symbol, {}).get('exchange', 'NSE')
-            
-            ltp_data = self.smartApi.ltpData(exchange, symbol, token)
-            if ltp_data and ltp_data.get('data'):
+    """📊 Get Last Traded Price"""
+    try:
+        if not self.is_connected:
+            return get_current_banknifty_price()
+        
+        token = TRADING_CONFIG.get(symbol, {}).get('token', '99926009')
+        exchange = 'NSE'  # FIXED: Always use NSE for spot prices
+        
+        ltp_data = self.smartApi.ltpData(exchange, symbol, token)
                 return float(ltp_data['data']['ltp'])
             
             return get_current_banknifty_price()
