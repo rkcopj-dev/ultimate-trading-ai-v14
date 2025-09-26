@@ -599,40 +599,168 @@ trading_ai = UltimateOptionsAI()
 
 @app.route('/')
 def home():
-    """🏠 Simple home test"""
-    return """
-    <html>
-    <head><title>Ultimate Trading AI v14.0</title></head>
-    <body style="font-family: Arial; padding: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+    """🏠 Home dashboard - FIXED VERSION"""
+    try:
+        stats = trading_ai.get_performance_stats()
+
+        live_status = "LIVE TRADING ACTIVE" if trading_ai.live_trading_enabled else "PAPER TRADING MODE"
+        status_color = "active" if trading_ai.live_trading_enabled else "inactive"
+
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S IST")
+
+        dashboard_html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <title>🧠 Ultimate Legal Insider AI v14.0</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }}
+        .header {{
+            text-align: center;
+            margin-bottom: 40px;
+        }}
+        .stats-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }}
+        .stat-card {{
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }}
+        .stat-value {{
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }}
+        .stat-label {{
+            font-size: 1.1em;
+            opacity: 0.8;
+        }}
+        .status-indicator {{
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }}
+        .active {{ background-color: #4CAF50; }}
+        .inactive {{ background-color: #f44336; }}
+        .btn {{
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }}
+        .btn:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
             <h1>🧠 ULTIMATE LEGAL INSIDER AI v14.0</h1>
-            <h2>💎 SYSTEM ACTIVE & LIVE TRADING READY</h2>
-            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <p><strong>🚀 Live Trading Status: CONNECTED ✅</strong></p>
-                <p><strong>🎯 Angel One API: ACTIVE ✅</strong></p>
-                <p><strong>📡 All Endpoints: WORKING ✅</strong></p>
+            <h2>💎 AI + HUMAN = GOLDEN FUTURE</h2>
+            <p>🚀 Professional Options Trading System with Live Trading</p>
+            <p>
+                <span class="status-indicator {status_color}"></span>
+                <strong>{live_status}</strong>
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{stats['total_trades']}</div>
+                <div class="stat-label">Total Signals</div>
             </div>
-            <div style="margin: 30px 0;">
-                <h3>⚡ Quick Access Links:</h3>
-                <p><a href="/trading/status" style="color: #4CAF50; font-weight: bold;">📊 Check Trading Status</a></p>
-                <p><a href="/webhook/tradingview" style="color: #4CAF50; font-weight: bold;">🔗 Test TradingView Webhook</a></p>
-                <p><a href="/api/stats" style="color: #4CAF50; font-weight: bold;">📈 Performance Stats</a></p>
+            <div class="stat-card">
+                <div class="stat-value">{stats['win_rate']:.1f}%</div>
+                <div class="stat-label">Win Rate</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;">
-                <p>🎯 <strong>NIFTY • BANK NIFTY • SENSEX</strong></p>
-                <p>💎 Phase 1 Complete - Ready for Live Trading!</p>
+            <div class="stat-card">
+                <div class="stat-value">₹{stats['estimated_pnl']:,}</div>
+                <div class="stat-label">Estimated P&L</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{stats['active_positions']}</div>
+                <div class="stat-label">Active Positions</div>
             </div>
         </div>
-    </body>
-    </html>
-    """
 
-    return dashboard_html
+        <div style="text-align: center;">
+            <h3>🎯 Supported Instruments</h3>
+            <p><strong>NIFTY</strong> • <strong>BANK NIFTY</strong> • <strong>SENSEX</strong></p>
+
+            <h3>⚡ Quick Actions</h3>
+            <a href="/trading/initialize" class="btn">🚀 Initialize Live Trading</a>
+            <a href="/trading/status" class="btn">📊 Trading Status</a>
+            <a href="/api/stats" class="btn">📈 Performance Stats</a>
+
+            <h3>🔗 API Endpoints</h3>
+            <p><strong>TradingView Webhook:</strong> /webhook/tradingview</p>
+            <p><strong>Manual Signal:</strong> /api/signal</p>
+            <p><strong>Live Trading Status:</strong> /trading/status</p>
+
+            <div style="margin-top: 40px; font-size: 0.9em; opacity: 0.7;">
+                <p>🕒 Last Updated: {current_time}</p>
+                <p>🚀 System Status: Online & Active</p>
+                <p>💎 Phase 1: Complete Implementation</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>"""
+
+        return dashboard_html
+
+    except Exception as e:
+        # Fallback simple response if dashboard fails
+        return f"""
+        <html>
+        <head><title>Ultimate Legal Insider AI v14.0</title></head>
+        <body style="font-family: Arial; padding: 20px; background: #667eea; color: white;">
+            <h1>🧠 Ultimate Legal Insider AI v14.0</h1>
+            <h2>💎 System Status: ACTIVE</h2>
+            <p>🚀 Live Trading: {'ENABLED' if trading_ai.live_trading_enabled else 'PAPER MODE'}</p>
+            <p>📊 <a href="/trading/status" style="color: white;">Trading Status</a></p>
+            <p>🔗 <a href="/webhook/tradingview" style="color: white;">Webhook Test</a></p>
+            <p>⚠️ Dashboard Error: {str(e)}</p>
+        </body>
+        </html>
+        """
 
 # NEW: TradingView Webhook Endpoint
 @app.route('/webhook/tradingview', methods=['POST', 'GET'])
 def tradingview_webhook():
-    """📡 TradingView webhook for live trading signals with GET support"""
+    """📡 TradingView webhook for live trading signals"""
     try:
         if request.method == 'GET':
             return jsonify({
@@ -649,16 +777,16 @@ def tradingview_webhook():
                 'live_trading': trading_ai.live_trading_enabled,
                 'timestamp': datetime.now().isoformat()
             })
-        
+
         # Handle POST request
         data = request.get_json() or {}
-        
+
         # Add timestamp
         data['timestamp'] = datetime.now().isoformat()
-        
+
         # Process through AI system
         result = trading_ai.process_trading_signal(data)
-        
+
         return jsonify({
             'status': 'success',
             'message': 'Signal processed successfully',
@@ -667,14 +795,13 @@ def tradingview_webhook():
             'system': 'Ultimate Legal Insider AI v14.0',
             'timestamp': datetime.now().isoformat()
         })
-        
+
     except Exception as e:
         print(f"TradingView webhook error: {e}")
         return jsonify({
             'status': 'error',
             'message': str(e),
-            'system': 'Ultimate Legal Insider AI v14.0',
-            'timestamp': datetime.now().isoformat()
+            'system': 'Ultimate Legal Insider AI v14.0'
         }), 500
 
 # NEW: Initialize Live Trading
@@ -726,14 +853,14 @@ def initialize_trading():
             'system': 'Ultimate Legal Insider AI v14.0'
         }), 500
 
-# NEW: Trading Status Endpoint
+# NEW: Trading Status Endpoint - FIXED
 @app.route('/trading/status', methods=['GET'])
 def trading_status():
-    """📊 Get comprehensive trading status with proper error handling"""
+    """📊 Get comprehensive trading status"""
     try:
         positions = []
         api_connected = False
-        
+
         # Safely check live trading and get positions
         if trading_ai.live_trading_enabled and trading_ai.angel_api:
             try:
@@ -743,7 +870,7 @@ def trading_status():
             except Exception as e:
                 print(f"Position fetch error: {e}")
                 positions = []
-        
+
         # Get performance stats safely
         try:
             stats = trading_ai.get_performance_stats()
@@ -756,7 +883,7 @@ def trading_status():
                 'estimated_pnl': 0,
                 'active_positions': 0
             }
-        
+
         return jsonify({
             'system': 'Ultimate Legal Insider AI v14.0',
             'live_trading_enabled': trading_ai.live_trading_enabled,
@@ -774,7 +901,7 @@ def trading_status():
             'timestamp': datetime.now().isoformat(),
             'status': 'operational'
         })
-        
+
     except Exception as e:
         print(f"Trading status endpoint error: {e}")
         return jsonify({
@@ -783,7 +910,18 @@ def trading_status():
             'system': 'Ultimate Legal Insider AI v14.0',
             'timestamp': datetime.now().isoformat()
         }), 500
-        
+
+# Original API endpoints (preserved)
+@app.route('/api/signal', methods=['POST'])
+def process_signal():
+    """🎯 Process trading signal manually"""
+    try:
+        data = request.get_json() or {}
+        result = trading_ai.process_trading_signal(data)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 @app.route('/api/stats', methods=['GET'])
 def get_stats():
     """📈 Get performance statistics"""
@@ -831,7 +969,7 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
-# FIXED: Auto-initialize using app context for Flask 2.x+
+# FIXED: Auto-initialize using function call for Flask 2.x+
 def startup_initialization():
     """🚀 Auto-initialize on startup"""
     try:
