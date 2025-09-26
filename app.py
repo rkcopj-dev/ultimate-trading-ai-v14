@@ -1,10 +1,10 @@
 """
 
-ðŸ§  ULTIMATE LEGAL INSIDER AI v14.0 - 100% AUTOMATIC TRADING SYSTEM
+🧠 ULTIMATE LEGAL INSIDER AI v14.0 - 100% AUTOMATIC TRADING SYSTEM
 
-ðŸ’Ž AI + HUMAN = GOLDEN FUTURE (à¤¸à¥à¤¨à¤¹à¤°à¤¾ à¤­à¤µà¤¿à¤·à¥à¤¯)
+💎 AI + HUMAN = GOLDEN FUTURE (सुनहरा भविष्य)
 
-ðŸš€ PHASE 1: PROFESSIONAL FOUNDATION SYSTEM + LIVE TRADING
+🚀 PHASE 1: PROFESSIONAL FOUNDATION SYSTEM + LIVE TRADING
 
 Created by: Ultimate AI Assistant
 
@@ -34,7 +34,7 @@ try:
     LIVE_TRADING_AVAILABLE = True
 except ImportError:
     LIVE_TRADING_AVAILABLE = False
-    print("âš ï¸ SmartAPI not installed. Live trading disabled.")
+    print("⚠️ SmartAPI not installed. Live trading disabled.")
 
 app = Flask(__name__)
 
@@ -103,7 +103,7 @@ class TradingSignal:
 
 # NEW: Angel One API Integration Class
 class AngelOneAPI:
-    """ðŸ”Œ Angel One SmartAPI Integration for Live Trading"""
+    """🔌 Angel One SmartAPI Integration for Live Trading"""
 
     def __init__(self):
         self.smartApi = None
@@ -113,14 +113,14 @@ class AngelOneAPI:
         self.is_connected = False
 
     def connect(self):
-        """ðŸ”— Connect to Angel One API"""
+        """🔗 Connect to Angel One API"""
         try:
             if not LIVE_TRADING_AVAILABLE:
-                print("âŒ SmartAPI not available")
+                print("❌ SmartAPI not available")
                 return False
 
             if not all([ANGEL_API_KEY, ANGEL_USERNAME, ANGEL_PASSWORD, ANGEL_TOTP_TOKEN]):
-                print("âŒ Angel One credentials not configured")
+                print("❌ Angel One credentials not configured")
                 return False
 
             self.smartApi = SmartConnect(api_key=ANGEL_API_KEY)
@@ -136,33 +136,33 @@ class AngelOneAPI:
                 self.refresh_token = data['data']['refreshToken']
                 self.feed_token = self.smartApi.getfeedToken()
                 self.is_connected = True
-                print("âœ… Angel One API Connected Successfully")
+                print("✅ Angel One API Connected Successfully")
                 return True
             else:
-                print(f"âŒ Angel One Login Failed: {data}")
+                print(f"❌ Angel One Login Failed: {data}")
                 return False
 
         except Exception as e:
-            print(f"âŒ Angel One Connection Error: {e}")
+            print(f"❌ Angel One Connection Error: {e}")
             return False
 
     def place_order(self, order_params):
-        """ðŸ“ˆ Place order via Angel One API"""
+        """📈 Place order via Angel One API"""
         try:
             if not self.is_connected:
-                print("âŒ Angel One API not connected")
+                print("❌ Angel One API not connected")
                 return None
 
             order_id = self.smartApi.placeOrder(order_params)
-            print(f"âœ… Order Placed Successfully: {order_id}")
+            print(f"✅ Order Placed Successfully: {order_id}")
             return order_id
 
         except Exception as e:
-            print(f"âŒ Order Placement Error: {e}")
+            print(f"❌ Order Placement Error: {e}")
             return None
 
     def get_positions(self):
-        """ðŸ“Š Get current positions"""
+        """📊 Get current positions"""
         try:
             if not self.is_connected:
                 return []
@@ -171,15 +171,15 @@ class AngelOneAPI:
             return positions.get('data', []) if positions else []
 
         except Exception as e:
-            print(f"âŒ Positions Error: {e}")
+            print(f"❌ Positions Error: {e}")
             return []
 
 class AdvancedAIAnalysis:
-    """ðŸ§  Advanced AI Analysis Engine"""
+    """🧠 Advanced AI Analysis Engine"""
 
     @staticmethod
     def calculate_market_sentiment():
-        """ðŸ“ˆ Calculate current market sentiment"""
+        """📈 Calculate current market sentiment"""
         # Advanced sentiment calculation
         base_sentiment = random.uniform(0.4, 0.9)
         time_factor = 1.0
@@ -195,7 +195,7 @@ class AdvancedAIAnalysis:
 
     @staticmethod
     def analyze_volatility_pattern(symbol):
-        """ðŸ“Š Analyze volatility patterns"""
+        """📊 Analyze volatility patterns"""
         volatility_map = {
             'NIFTY': random.uniform(0.15, 0.35),
             'BANKNIFTY': random.uniform(0.20, 0.45),
@@ -205,7 +205,7 @@ class AdvancedAIAnalysis:
 
     @staticmethod
     def calculate_ai_confidence(signal_data):
-        """ðŸŽ¯ Calculate AI confidence score"""
+        """🎯 Calculate AI confidence score"""
         base_confidence = 0.75
 
         # Market sentiment factor
@@ -224,7 +224,7 @@ class AdvancedAIAnalysis:
         return min(confidence, 0.98)
 
 class UltimateOptionsAI:
-    """ðŸ§  Ultimate Options Trading AI System"""
+    """🧠 Ultimate Options Trading AI System"""
 
     def __init__(self):
         self.active_positions: List[TradingSignal] = []
@@ -241,7 +241,7 @@ class UltimateOptionsAI:
         self.init_database()
 
     def init_database(self):
-        """ðŸ—„ï¸ Initialize SQLite database"""
+        """🗄️ Initialize SQLite database"""
         try:
             conn = sqlite3.connect('trading_data.db')
             cursor = conn.cursor()
@@ -268,22 +268,22 @@ class UltimateOptionsAI:
             print(f"Database initialization error: {e}")
 
     def enable_live_trading(self):
-        """ðŸš€ Enable live trading functionality"""
+        """🚀 Enable live trading functionality"""
         try:
             success = self.angel_api.connect()
             if success:
                 self.live_trading_enabled = True
-                print("ðŸš€ Live Trading Enabled Successfully!")
+                print("🚀 Live Trading Enabled Successfully!")
                 return True
             else:
-                print("âŒ Live Trading Enable Failed")
+                print("❌ Live Trading Enable Failed")
                 return False
         except Exception as e:
-            print(f"âŒ Live Trading Error: {e}")
+            print(f"❌ Live Trading Error: {e}")
             return False
 
     def get_current_expiry(self, symbol):
-        """ðŸ“… Get current weekly expiry"""
+        """📅 Get current weekly expiry"""
         today = datetime.now()
         days_until_thursday = (3 - today.weekday()) % 7
         if days_until_thursday == 0 and today.hour >= 15:
@@ -293,7 +293,7 @@ class UltimateOptionsAI:
         return next_thursday.strftime("%d%b").upper()
 
     def calculate_strike_selection(self, symbol, spot_price, option_type):
-        """ðŸŽ¯ Calculate optimal strike price"""
+        """🎯 Calculate optimal strike price"""
         if option_type == "CE":
             # For calls, slightly OTM
             strike = int(spot_price * 1.01 / 50) * 50
@@ -304,7 +304,7 @@ class UltimateOptionsAI:
         return strike
 
     def prepare_order_params(self, signal):
-        """ðŸ“‹ Prepare order parameters for Angel One"""
+        """📋 Prepare order parameters for Angel One"""
         try:
             config = TRADING_CONFIG[signal.symbol]
             expiry = self.get_current_expiry(signal.symbol)
@@ -325,14 +325,14 @@ class UltimateOptionsAI:
                 "price": "0"
             }
         except Exception as e:
-            print(f"âŒ Order params error: {e}")
+            print(f"❌ Order params error: {e}")
             return None
 
     def place_live_order(self, signal):
-        """ðŸ“ˆ Place live order through Angel One"""
+        """📈 Place live order through Angel One"""
         try:
             if not self.live_trading_enabled:
-                print("âš ï¸ Live trading not enabled")
+                print("⚠️ Live trading not enabled")
                 return None
 
             order_params = self.prepare_order_params(signal)
@@ -344,7 +344,7 @@ class UltimateOptionsAI:
             if order_id:
                 signal.order_id = str(order_id)
                 signal.status = TradeStatus.ORDER_PLACED
-                print(f"âœ… Live order placed: {order_id}")
+                print(f"✅ Live order placed: {order_id}")
 
                 # Send live trading notification
                 self.send_live_trading_notification(signal)
@@ -352,40 +352,40 @@ class UltimateOptionsAI:
             return order_id
 
         except Exception as e:
-            print(f"âŒ Live order error: {e}")
+            print(f"❌ Live order error: {e}")
             return None
 
     def send_live_trading_notification(self, signal):
-        """ðŸ“± Send live trading notification"""
+        """📱 Send live trading notification"""
         config = TRADING_CONFIG[signal.symbol]
         lot_value = signal.quantity * config['lot_size']
 
-        message = f"""ðŸš€ **LIVE ORDER PLACED - ULTIMATE AI v14.0**
+        message = f"""🚀 **LIVE ORDER PLACED - ULTIMATE AI v14.0**
 
-ðŸ§  **REAL TRADING ACTIVE** ðŸ’Ž
+🧠 **REAL TRADING ACTIVE** 💎
 
-ðŸ“Š **ORDER DETAILS:**
-ðŸŽ¯ **{signal.symbol} {signal.strike} {signal.option_type}**
-ðŸ’° Entry Premium: **â‚¹{signal.entry_premium}**
-ðŸ“Š Quantity: **{signal.quantity} Lots** ({lot_value} shares)
-ðŸ†” Order ID: **{signal.order_id}**
+📊 **ORDER DETAILS:**
+🎯 **{signal.symbol} {signal.strike} {signal.option_type}**
+💰 Entry Premium: **₹{signal.entry_premium}**
+📊 Quantity: **{signal.quantity} Lots** ({lot_value} shares)
+🆔 Order ID: **{signal.order_id}**
 
-ðŸŽ¯ **TARGETS:**
-ðŸ¥‡ Target 1: **â‚¹{signal.targets[0]}** (+{((signal.targets[0]/signal.entry_premium-1)*100):.1f}%)
-ðŸ¥ˆ Target 2: **â‚¹{signal.targets[1]}** (+{((signal.targets[1]/signal.entry_premium-1)*100):.1f}%)
-ðŸ¥‰ Target 3: **â‚¹{signal.targets[2]}** (+{((signal.targets[2]/signal.entry_premium-1)*100):.1f}%)
-ðŸ›‘ Stop Loss: **â‚¹{signal.stop_loss}** ({((signal.stop_loss/signal.entry_premium-1)*100):.1f}%)
+🎯 **TARGETS:**
+🥇 Target 1: **₹{signal.targets[0]}** (+{((signal.targets[0]/signal.entry_premium-1)*100):.1f}%)
+🥈 Target 2: **₹{signal.targets[1]}** (+{((signal.targets[1]/signal.entry_premium-1)*100):.1f}%)
+🥉 Target 3: **₹{signal.targets[2]}** (+{((signal.targets[2]/signal.entry_premium-1)*100):.1f}%)
+🛑 Stop Loss: **₹{signal.stop_loss}** ({((signal.stop_loss/signal.entry_premium-1)*100):.1f}%)
 
-ðŸ§  AI Confidence: **{signal.confidence:.1%}**
-â° Time: **{datetime.now().strftime("%H:%M:%S IST")}**
+🧠 AI Confidence: **{signal.confidence:.1%}**
+⏰ Time: **{datetime.now().strftime("%H:%M:%S IST")}**
 
-ðŸš€ **LIVE TRADING SYSTEM ACTIVE!**
-ðŸ’Ž **Phase 1 Complete - Real Money Trading!**"""
+🚀 **LIVE TRADING SYSTEM ACTIVE!**
+💎 **Phase 1 Complete - Real Money Trading!**"""
 
         send_telegram_message(message)
 
     def process_trading_signal(self, signal_data):
-        """ðŸŽ¯ Process incoming trading signal"""
+        """🎯 Process incoming trading signal"""
         try:
             # Extract signal information
             symbol = signal_data.get('symbol', 'NIFTY').upper()
@@ -485,38 +485,38 @@ class UltimateOptionsAI:
             }
 
     def send_paper_trading_notification(self, signal):
-        """ðŸ“± Send paper trading notification"""
+        """📱 Send paper trading notification"""
         config = TRADING_CONFIG[signal.symbol]
         lot_value = signal.quantity * config['lot_size']
 
-        message = f"""ðŸ§  **ULTIMATE LEGAL INSIDER AI v14.0**
+        message = f"""🧠 **ULTIMATE LEGAL INSIDER AI v14.0**
 
-ðŸ’Ž **SUPREME AI SIGNAL GENERATED**
+💎 **SUPREME AI SIGNAL GENERATED**
 
-ðŸ“Š **SIGNAL DETAILS:**
-ðŸŽ¯ **{signal.symbol} {signal.strike} {signal.option_type}**
-ðŸ’° Entry Premium: **â‚¹{signal.entry_premium}**
-ðŸ“Š Quantity: **{signal.quantity} Lots** ({lot_value} shares)
-ðŸ“ˆ Mode: **{"LIVE TRADING" if self.live_trading_enabled else "PAPER TRADING"}**
+📊 **SIGNAL DETAILS:**
+🎯 **{signal.symbol} {signal.strike} {signal.option_type}**
+💰 Entry Premium: **₹{signal.entry_premium}**
+📊 Quantity: **{signal.quantity} Lots** ({lot_value} shares)
+📈 Mode: **{"LIVE TRADING" if self.live_trading_enabled else "PAPER TRADING"}**
 
-ðŸŽ¯ **TARGETS:**
-ðŸ¥‡ Target 1: **â‚¹{signal.targets[0]}** (+{((signal.targets[0]/signal.entry_premium-1)*100):.1f}%)
-ðŸ¥ˆ Target 2: **â‚¹{signal.targets[1]}** (+{((signal.targets[1]/signal.entry_premium-1)*100):.1f}%)
-ðŸ¥‰ Target 3: **â‚¹{signal.targets[2]}** (+{((signal.targets[2]/signal.entry_premium-1)*100):.1f}%)
-ðŸ›‘ Stop Loss: **â‚¹{signal.stop_loss}** ({((signal.stop_loss/signal.entry_premium-1)*100):.1f}%)
+🎯 **TARGETS:**
+🥇 Target 1: **₹{signal.targets[0]}** (+{((signal.targets[0]/signal.entry_premium-1)*100):.1f}%)
+🥈 Target 2: **₹{signal.targets[1]}** (+{((signal.targets[1]/signal.entry_premium-1)*100):.1f}%)
+🥉 Target 3: **₹{signal.targets[2]}** (+{((signal.targets[2]/signal.entry_premium-1)*100):.1f}%)
+🛑 Stop Loss: **₹{signal.stop_loss}** ({((signal.stop_loss/signal.entry_premium-1)*100):.1f}%)
 
-ðŸ§  **AI Analysis:**
-ðŸ“ˆ Confidence: **{signal.confidence:.1%}**
-ðŸŽ¯ Win Probability: **{min(signal.confidence * 100, 95):.0f}%**
-âš¡ Signal Strength: **{"STRONG" if signal.confidence > 0.85 else "MODERATE"}**
+🧠 **AI Analysis:**
+📈 Confidence: **{signal.confidence:.1%}**
+🎯 Win Probability: **{min(signal.confidence * 100, 95):.0f}%**
+⚡ Signal Strength: **{"STRONG" if signal.confidence > 0.85 else "MODERATE"}**
 
-â° Signal Time: **{datetime.now().strftime("%H:%M:%S IST")}**
-ðŸš€ **AI SYSTEM ACTIVE - {"LIVE" if self.live_trading_enabled else "PAPER"} MODE**"""
+⏰ Signal Time: **{datetime.now().strftime("%H:%M:%S IST")}**
+🚀 **AI SYSTEM ACTIVE - {"LIVE" if self.live_trading_enabled else "PAPER"} MODE**"""
 
         send_telegram_message(message)
 
     def save_trade_to_db(self, signal):
-        """ðŸ’¾ Save trade to database"""
+        """💾 Save trade to database"""
         try:
             conn = sqlite3.connect('trading_data.db')
             cursor = conn.cursor()
@@ -537,7 +537,7 @@ class UltimateOptionsAI:
             print(f"Database save error: {e}")
 
     def get_performance_stats(self):
-        """ðŸ“Š Get trading performance statistics"""
+        """📊 Get trading performance statistics"""
         try:
             conn = sqlite3.connect('trading_data.db')
             cursor = conn.cursor()
@@ -572,7 +572,7 @@ class UltimateOptionsAI:
             }
 
 def send_telegram_message(message):
-    """ðŸ“± Send message to Telegram"""
+    """📱 Send message to Telegram"""
     try:
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
             print("Telegram not configured")
@@ -599,13 +599,13 @@ trading_ai = UltimateOptionsAI()
 
 @app.route('/')
 def home():
-    """ðŸ  Home dashboard"""
+    """🏠 Home dashboard"""
     stats = trading_ai.get_performance_stats()
 
     dashboard_html = f"""<!DOCTYPE html>
 <html>
 <head>
-    <title>ðŸ§  Ultimate Legal Insider AI v14.0</title>
+    <title>🧠 Ultimate Legal Insider AI v14.0</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -681,9 +681,9 @@ def home():
 <body>
     <div class="container">
         <div class="header">
-            <h1>ðŸ§  ULTIMATE LEGAL INSIDER AI v14.0</h1>
-            <h2>ðŸ’Ž AI + HUMAN = GOLDEN FUTURE</h2>
-            <p>ðŸš€ Professional Options Trading System with Live Trading</p>
+            <h1>🧠 ULTIMATE LEGAL INSIDER AI v14.0</h1>
+            <h2>💎 AI + HUMAN = GOLDEN FUTURE</h2>
+            <p>🚀 Professional Options Trading System with Live Trading</p>
             <p>
                 <span class="status-indicator {'active' if trading_ai.live_trading_enabled else 'inactive'}"></span>
                 <strong>{'LIVE TRADING ACTIVE' if trading_ai.live_trading_enabled else 'PAPER TRADING MODE'}</strong>
@@ -700,7 +700,7 @@ def home():
                 <div class="stat-label">Win Rate</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">â‚¹{stats['estimated_pnl']:,}</div>
+                <div class="stat-value">₹{stats['estimated_pnl']:,}</div>
                 <div class="stat-label">Estimated P&L</div>
             </div>
             <div class="stat-card">
@@ -710,23 +710,23 @@ def home():
         </div>
 
         <div style="text-align: center;">
-            <h3>ðŸŽ¯ Supported Instruments</h3>
-            <p><strong>NIFTY</strong> â€¢ <strong>BANK NIFTY</strong> â€¢ <strong>SENSEX</strong></p>
+            <h3>🎯 Supported Instruments</h3>
+            <p><strong>NIFTY</strong> • <strong>BANK NIFTY</strong> • <strong>SENSEX</strong></p>
 
-            <h3>âš¡ Quick Actions</h3>
-            <a href="/trading/initialize" class="btn">ðŸš€ Initialize Live Trading</a>
-            <a href="/trading/status" class="btn">ðŸ“Š Trading Status</a>
-            <a href="/api/stats" class="btn">ðŸ“ˆ Performance Stats</a>
+            <h3>⚡ Quick Actions</h3>
+            <a href="/trading/initialize" class="btn">🚀 Initialize Live Trading</a>
+            <a href="/trading/status" class="btn">📊 Trading Status</a>
+            <a href="/api/stats" class="btn">📈 Performance Stats</a>
 
-            <h3>ðŸ”— API Endpoints</h3>
+            <h3>🔗 API Endpoints</h3>
             <p><strong>TradingView Webhook:</strong> /webhook/tradingview</p>
             <p><strong>Manual Signal:</strong> /api/signal</p>
             <p><strong>Live Trading Status:</strong> /trading/status</p>
 
             <div style="margin-top: 40px; font-size: 0.9em; opacity: 0.7;">
-                <p>ðŸ•’ Last Updated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S IST")}</p>
-                <p>ðŸš€ System Status: Online & Active</p>
-                <p>ðŸ’Ž Phase 1: Complete Implementation</p>
+                <p>🕒 Last Updated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S IST")}</p>
+                <p>🚀 System Status: Online & Active</p>
+                <p>💎 Phase 1: Complete Implementation</p>
             </div>
         </div>
     </div>
@@ -738,7 +738,7 @@ def home():
 # NEW: TradingView Webhook Endpoint
 @app.route('/webhook/tradingview', methods=['POST'])
 def tradingview_webhook():
-    """ðŸ“¡ TradingView webhook for live trading signals"""
+    """📡 TradingView webhook for live trading signals"""
     try:
         # Get signal data
         data = request.get_json() or {}
@@ -769,7 +769,7 @@ def tradingview_webhook():
 # NEW: Initialize Live Trading
 @app.route('/trading/initialize', methods=['POST', 'GET'])
 def initialize_trading():
-    """ðŸš€ Initialize live trading connection"""
+    """🚀 Initialize live trading connection"""
     try:
         if request.method == 'GET':
             return jsonify({
@@ -790,21 +790,21 @@ def initialize_trading():
 
         if success:
             # Send success notification
-            send_telegram_message("""ðŸš€ **LIVE TRADING INITIALIZED**
+            send_telegram_message("""🚀 **LIVE TRADING INITIALIZED**
 
-ðŸ§  **ULTIMATE LEGAL INSIDER AI v14.0**
-ðŸ’Ž **REAL MONEY TRADING ACTIVE**
+🧠 **ULTIMATE LEGAL INSIDER AI v14.0**
+💎 **REAL MONEY TRADING ACTIVE**
 
-âœ… Angel One API Connected
-âœ… Live Order Placement Ready
-âœ… Real-time Position Monitoring
+✅ Angel One API Connected
+✅ Live Order Placement Ready
+✅ Real-time Position Monitoring
 
-ðŸŽ¯ **Ready for:**
-â€¢ NIFTY Options
-â€¢ BANK NIFTY Options  
-â€¢ SENSEX Options
+🎯 **Ready for:**
+• NIFTY Options
+• BANK NIFTY Options  
+• SENSEX Options
 
-ðŸš€ **PHASE 1 COMPLETE - LIVE TRADING ACTIVE!**""")
+🚀 **PHASE 1 COMPLETE - LIVE TRADING ACTIVE!**""")
 
         return jsonify(response_data)
 
@@ -818,7 +818,7 @@ def initialize_trading():
 # NEW: Trading Status Endpoint
 @app.route('/trading/status', methods=['GET'])
 def trading_status():
-    """ðŸ“Š Get comprehensive trading status"""
+    """📊 Get comprehensive trading status"""
     try:
         positions = []
         if trading_ai.live_trading_enabled:
@@ -838,7 +838,7 @@ def trading_status():
             'configuration': {
                 'max_positions': MAX_POSITIONS,
                 'risk_per_trade': f"{RISK_PER_TRADE * 100}%",
-                'portfolio_value': f"â‚¹{PORTFOLIO_VALUE:,}"
+                'portfolio_value': f"₹{PORTFOLIO_VALUE:,}"
             },
             'timestamp': datetime.now().isoformat()
         })
@@ -853,7 +853,7 @@ def trading_status():
 # Original API endpoints (preserved)
 @app.route('/api/signal', methods=['POST'])
 def process_signal():
-    """ðŸŽ¯ Process trading signal manually"""
+    """🎯 Process trading signal manually"""
     try:
         data = request.get_json() or {}
         result = trading_ai.process_trading_signal(data)
@@ -863,7 +863,7 @@ def process_signal():
 
 @app.route('/api/stats', methods=['GET'])
 def get_stats():
-    """ðŸ“ˆ Get performance statistics"""
+    """📈 Get performance statistics"""
     try:
         stats = trading_ai.get_performance_stats()
         return jsonify(stats)
@@ -872,7 +872,7 @@ def get_stats():
 
 @app.route('/api/positions', methods=['GET'])
 def get_positions():
-    """ðŸ“Š Get active positions"""
+    """📊 Get active positions"""
     try:
         positions = []
         for pos in trading_ai.active_positions:
@@ -899,7 +899,7 @@ def get_positions():
 
 @app.route('/health', methods=['GET'])
 def health_check():
-    """ðŸ©º Health check endpoint"""
+    """🩺 Health check endpoint"""
     return jsonify({
         'status': 'healthy',
         'system': 'Ultimate Legal Insider AI v14.0',
@@ -910,49 +910,49 @@ def health_check():
 
 # FIXED: Auto-initialize using app context for Flask 2.x+
 def startup_initialization():
-    """ðŸš€ Auto-initialize on startup"""
+    """🚀 Auto-initialize on startup"""
     try:
         if ANGEL_API_KEY and ANGEL_USERNAME and ANGEL_PASSWORD and ANGEL_TOTP_TOKEN:
-            print("ðŸš€ Auto-initializing live trading...")
+            print("🚀 Auto-initializing live trading...")
             success = trading_ai.enable_live_trading()
             if success:
-                print("âœ… Live trading auto-initialized successfully!")
+                print("✅ Live trading auto-initialized successfully!")
             else:
-                print("âš ï¸ Live trading auto-initialization failed")
+                print("⚠️ Live trading auto-initialization failed")
         else:
-            print("âš ï¸ Angel One credentials not configured - running in paper mode")
+            print("⚠️ Angel One credentials not configured - running in paper mode")
     except Exception as e:
-        print(f"âŒ Startup initialization error: {e}")
+        print(f"❌ Startup initialization error: {e}")
 
 if __name__ == '__main__':
     print(f"""
 
-ðŸš€ ====================================
-ðŸ§  ULTIMATE LEGAL INSIDER AI v14.0
-ðŸ’Ž AI + HUMAN = GOLDEN FUTURE
-ðŸš€ ====================================
+🚀 ====================================
+🧠 ULTIMATE LEGAL INSIDER AI v14.0
+💎 AI + HUMAN = GOLDEN FUTURE
+🚀 ====================================
 
-ðŸ“Š FEATURES:
-âœ… Advanced AI Signal Generation
-âœ… Live Trading via Angel One API
-âœ… NIFTY, BANK NIFTY, SENSEX Support
-âœ… TradingView Webhook Integration
-âœ… Real-time Telegram Notifications
-âœ… Professional Risk Management
-âœ… Complete Trading Automation
+📊 FEATURES:
+✅ Advanced AI Signal Generation
+✅ Live Trading via Angel One API
+✅ NIFTY, BANK NIFTY, SENSEX Support
+✅ TradingView Webhook Integration
+✅ Real-time Telegram Notifications
+✅ Professional Risk Management
+✅ Complete Trading Automation
 
-ðŸ”— ENDPOINTS:
-ðŸ“¡ TradingView Webhook: /webhook/tradingview
-ðŸš€ Initialize Trading: /trading/initialize
-ðŸ“Š Trading Status: /trading/status
-ðŸŽ¯ Manual Signal: /api/signal
+🔗 ENDPOINTS:
+📡 TradingView Webhook: /webhook/tradingview
+🚀 Initialize Trading: /trading/initialize
+📊 Trading Status: /trading/status
+🎯 Manual Signal: /api/signal
 
-ðŸŽ¯ TARGET: 85-90% Win Rate
-ðŸ’° RISK: 2% per trade
-ðŸ“ˆ MAX POSITIONS: {MAX_POSITIONS}
+🎯 TARGET: 85-90% Win Rate
+💰 RISK: 2% per trade
+📈 MAX POSITIONS: {MAX_POSITIONS}
 
-ðŸš€ Starting on port {PORT}...
-ðŸ’Ž Phase 1 Complete - Ready for Live Trading!
+🚀 Starting on port {PORT}...
+💎 Phase 1 Complete - Ready for Live Trading!
 
     """)
 
